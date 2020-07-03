@@ -1,6 +1,6 @@
 # D2H-Demo
 
-Simple demo app for DTH provide say D2H TV.
+Simple demo app for a DTH provider say D2H TV.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.18.
 
