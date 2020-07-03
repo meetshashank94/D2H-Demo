@@ -1,0 +1,19 @@
+#smallText {
+    font-size: 12px;
+    margin-bottom: 0px;
+}
+#pLarge {
+    font-weight: bolder;
+}
+.mat-card {
+    .mat-card-subtitle {
+        margin-bottom: 0px;
+        text-decoration: underline;
+    }
+    .mat-card-content {
+        margin-bottom: 30px;
+    }
+    .custPad{
+        padding: 10px 0px 0px 0px;
+    }
+}

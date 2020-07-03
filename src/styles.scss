@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.nopadding{
+    padding: 0px;
+    margin: 0px
+}
+
+.rowMargin{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+

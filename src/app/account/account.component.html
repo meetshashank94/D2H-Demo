@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row rowMargin">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <mat-card>
+                <mat-card-title>
+                    Your Account Balance
+                </mat-card-title>
+                <mat-card-content>
+                    <div class="col-lg-12 nopadding d-flex align-items-center">
+                        <div class="col-lg-6 col-md-6 col-sm-12 nopadding">
+                            You currently have <b>{{ presentAccountBalance | currency:'INR' }}</b>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+
+    <div class="row rowMargin">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <mat-card>
+                <mat-card-title>
+                    Recharge your Account
+                </mat-card-title>
+                <mat-card-content>
+                    <div class="col-lg-12 nopadding d-flex align-items-center">
+                        <div class="col-lg-6 nopadding">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Enter the amount to recharge</mat-label>
+                                <input matInput type="text" maxlength="6" OnlyNumber
+                                    placeholder="{{ 500 | currency :'INR'}}" [(ngModel)]="rechargeAmount">
+                            </mat-form-field>
+
+                        </div>
+                        <div class="col-lg-6 nopadding">
+                            <button mat-raised-button class="float-right buttomMargin"
+                                (click)="updateBalance()">Recharge
+                            </button>
+                        </div>
+
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+
+    <app-packs></app-packs>
+    <app-user-details></app-user-details>
+</div>

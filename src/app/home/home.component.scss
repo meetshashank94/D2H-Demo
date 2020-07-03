@@ -1,0 +1,20 @@
+.centerThis{
+    margin: 0 auto;
+    text-align: center;
+
+    .textShadow {
+        color: black;
+        font: bold 45px Helvetica, Arial, Sans-Serif;
+        text-shadow: 1px 1px #ffd740, 2px 2px #ffd740, 3px 3px #ffd740;
+        -webkit-transition: all 0.12s ease-out;
+        -moz-transition: all 0.12s ease-out;
+        -ms-transition: all 0.12s ease-out;
+        -o-transition: all 0.12s ease-out;
+      }
+      .textShadow:hover {
+        position: relative;
+        top: -3px;
+        left: -3px;
+        text-shadow: 1px 1px #ffd740, 2px 2px #ffd740, 3px 3px #ffd740, 4px 4px #ffd740, 5px 5px #ffd740, 6px 6px #ffd740;
+      }
+}

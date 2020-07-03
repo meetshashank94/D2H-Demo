@@ -1,0 +1,248 @@
+<div class="row rowMargin">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <mat-card>
+            <mat-card-title>
+                Available Packs, Channels and Services
+            </mat-card-title>
+
+            <div class="row rowMargin d-xs-block">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+
+                    <!-- Pre-built packs -->
+                    <mat-card-subtitle>
+                        Available Pre-built Packs
+                    </mat-card-subtitle>
+                    <mat-card-content>
+                        <div class="col-lg-12 nopadding ">
+                            <div class="col-lg-12 col-sm-12 col-md-12 nopadding">
+                                <mat-list #packs>
+                                    <mat-list-item *ngFor="let pack of channelPacks;">
+                                        <p matLine id="pLarge">{{pack.id}}</p>
+
+                                        <p matLine id="smallText">
+                                            Channels included : {{ pack.viewValue }}
+                                        </p>
+                                        <p matLine id="smallText">
+                                            {{pack.price | currency : 'INR'}} /month
+                                        </p>
+                                    </mat-list-item>
+                                </mat-list>
+                            </div>
+
+                        </div>
+                    </mat-card-content>
+
+                    <!-- Services -->
+                    <mat-card-subtitle>
+                        Available services for subscription
+                    </mat-card-subtitle>
+                    <mat-card-content>
+                        <div class="col-lg-12 nopadding">
+                            <div class="col-lg-12 col-sm-12 col-md-12 nopadding">
+                                <mat-list #service>
+                                    <mat-list-item *ngFor="let service of services;">
+                                        <p matLine id="pLarge">{{service.viewValue}} </p>
+
+                                        <p matLine id="smallText">
+                                            {{service.price | currency : 'INR'}} /month
+                                        </p>
+                                    </mat-list-item>
+                                </mat-list>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <!-- Channels -->
+                    <mat-card-subtitle>
+                        Available individual channels
+                    </mat-card-subtitle>
+                    <mat-card-content>
+                        <div class="col-lg-12 nopadding">
+                            <div class="col-lg-12 col-sm-12 col-md-12 nopadding">
+                                <mat-list #channel>
+                                    <mat-list-item *ngFor="let channel of channels;">
+                                        <p matLine id="pLarge">{{channel.viewValue}}</p>
+
+                                        <p matLine id="smallText">
+                                            {{channel.price | currency : 'INR'}} /month
+                                        </p>
+                                    </mat-list-item>
+                                </mat-list>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </div>
+            </div>
+
+            <div class="row rowMargin d-xs-block">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+
+                    <mat-card-title>
+                        Subscribe to Channel pack
+                    </mat-card-title>
+                    <mat-card-content>
+                        <form [formGroup]="subscriptionForm">
+                            <div>
+                                <div class="col-lg-12 nopadding">
+                                    <div class="col-lg-8 form-group">
+                                        <label>Base Pack</label>
+
+                                        <ng-select *ngIf="channelPacks.length > 0"
+                                            formControlName="basePack" bindLabel="id" bindValue="id" [clearable]="false"
+                                            [searchable]="false" [items]="channelPacks" required>
+                                        </ng-select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-8 col-md-8 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="duration">Duration of Subscription <small>(in
+                                                months)</small></label>
+                                        <input type="text" class="form-control" maxlength="2" minlength="1" OnlyNumber
+                                            placeholder="3 months" formControlName="duration" id="duration" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-8 col-md-8 col-sm-12">
+
+                                    <div class="form-group">
+                                        <p> Any Discounts :
+                                            {{ this.subscriptionForm.controls.duration.value >= 3  ? '10%': 'N/A' }}
+                                        </p>
+                                        <p>Final Price after discount : {{ packageCost | currency : 'INR'}} </p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+
+                                    <button mat-raised-button [disabled]="!(subscriptionForm.valid)"
+                                        (click)="saveSubscription()">Subcribe
+                                    </button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </mat-card-content>
+
+                </div>
+                <div class="col-lg-6 col-md-6  col-sm-12">
+
+                    <mat-card-title>
+                        Subscription Details
+                    </mat-card-title>
+                    <mat-card-content>
+                        <mat-card-subtitle>
+                            Subscribed Channel Pack
+                        </mat-card-subtitle>
+                        <div class="col-lg-12 col-sm-12 col-md-12 custPad" >
+                            <mat-list *ngIf="baseSubscriptiondata">
+                                <mat-list-item>
+                                    Channel pack : {{baseSubscriptiondata?.basePack}}
+                                </mat-list-item>
+                                <mat-list-item>
+                                    Duration in months : {{baseSubscriptiondata?.duration}}
+                                </mat-list-item>
+
+                            </mat-list>
+                        </div>
+                        <mat-card-subtitle>
+                            Additional Channels
+                        </mat-card-subtitle>
+                        <div class="col-lg-12 col-sm-12 col-md-12 custPad">
+                            <mat-list *ngFor="let channel of channelsFoundInForm">
+                                <mat-list-item>
+                                    {{channel.viewValue}}
+                                </mat-list-item>
+                            </mat-list>
+                        </div>
+                        <mat-card-subtitle>
+                            Additional Services
+                        </mat-card-subtitle>
+                        <div class="col-lg-12 col-sm-12 col-md-12  custPad" >
+                            <mat-list *ngFor="let service of servicesFoundInForm">
+                                <mat-list-item>
+                                    {{service.viewValue}}
+                                </mat-list-item>
+                            </mat-list>
+
+                        </div>
+                    </mat-card-content>
+
+                </div>
+            </div>
+
+            <div class="row rowMargin d-xs-block">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+
+                    <mat-card-title>
+                        Add Channels to existing Subscription
+                    </mat-card-title>
+                    <mat-card-content>
+                        <div class="col-lg-6 nopadding">
+                            <form>
+                                <div class="col-lg-12 form-group">
+                                    <div class="form-group">
+                                        <label for="additionalChannels">Choose additional channels <small>(add multiple
+                                                by using comma)</small></label>
+                                        <input type="text" class="form-control" OnlyComma
+                                            placeholder="Enter channel names" id="additionalChannels"
+                                            [formControl]="channelsAdded">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+
+                                    <button mat-raised-button type="submit" [disabled]="!(channelsAdded.valid)"
+                                        (click)="addChannels()">Add Channels
+                                    </button>
+
+                                </div>
+                            </form>
+                        </div>
+                    </mat-card-content>
+
+                </div>
+            </div>
+
+            <div class="row rowMargin d-xs-block">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+
+                    <mat-card-title>
+                        Subscribe to special services
+                    </mat-card-title>
+                    <mat-card-content>
+                        <div class="col-lg-6 nopadding">
+                            <form>
+                                <div class="col-lg-12 form-group">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="additionalServices">Choose additional services <small>(add
+                                                    multiple
+                                                    by using comma)</small></label>
+                                            <input type="text" class="form-control" OnlyComma
+                                                placeholder="Enter service name" id="additionalServices"
+                                                [formControl]="servicesAdded">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+
+                                    <button mat-raised-button type="submit" [disabled]="!(servicesAdded.valid)"
+                                        (click)="addServices()">Add Services
+                                    </button>
+
+                                </div>
+                            </form>
+                        </div>
+                    </mat-card-content>
+
+                </div>
+            </div>
+
+        </mat-card>
+    </div>
+</div>
